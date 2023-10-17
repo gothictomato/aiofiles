@@ -47,6 +47,8 @@ listdir = wrap(os.listdir)
 scandir = wrap(os.scandir)
 access = wrap(os.access)
 
+if hasattr(os, "mkfifo"):
+    mkfifo = wrap(os.mkfifo)
 if hasattr(os, "link"):
     link = wrap(os.link)
 if hasattr(os, "sendfile"):

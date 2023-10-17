@@ -19,9 +19,9 @@ jobs:
           ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "pypy-3.9"]
 
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: "actions/checkout@v4.1.1"
 
-      - uses: "actions/setup-python@v4"
+      - uses: "actions/setup-python@v4.7.1"
         with:
           python-version: "${{ matrix.python-version }}"
           allow-prereleases: true
@@ -50,16 +50,16 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: "actions/checkout@v4.1.1"
 
-      - uses: "actions/setup-python@v4"
+      - uses: "actions/setup-python@v4.7.1"
         with:
           cache: "pip"
           python-version: "3.11"
 
       - run: "python -Im pip install --upgrade coverage[toml]"
 
-      - uses: "actions/download-artifact@v3"
+      - uses: "actions/download-artifact@v3.0.2"
         with:
           name: "coverage-data"
 
@@ -83,11 +83,11 @@ jobs:
 
       - name: "Make badge"
         if: github.ref == 'refs/heads/main'
-        uses: "schneegans/dynamic-badges-action@v1.4.0"
+        uses: "schneegans/dynamic-badges-action@v1.6.0"
         with:
           # GIST_TOKEN is a GitHub personal access token with scope "gist".
           auth: ${{ secrets.GIST_TOKEN }}
-          gistID: 882f02e3df32136c847ba90d2688f06e
+          gistID: dacb39318d55505afd8e457a61f765a2
           filename: covbadge.json
           label: Coverage
           message: ${{ env.total }}%
@@ -100,8 +100,8 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
-      - uses: "actions/checkout@v3"
-      - uses: "actions/setup-python@v4"
+      - uses: "actions/checkout@v4.1.1"
+      - uses: "actions/setup-python@v4.7.1"
         with:
           python-version: "3.x"
 

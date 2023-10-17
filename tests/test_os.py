@@ -3,6 +3,7 @@ import asyncio
 import os
 import platform
 from os import stat
+from stat import S_ISFIFO
 from os.path import dirname, exists, isdir, join
 from pathlib import Path
 
@@ -456,6 +457,14 @@ async def test_scandir_non_existing_dir():
     some_dir = join(dirname(__file__), "resources", "some_dir")
     with pytest.raises(FileNotFoundError):
         await aiofiles.os.scandir(some_dir)
+
+
+@pytest.mark.skipif(platform.system() == "Windows", reason="Doesn't exist on windows")
+@pytest.mark.asyncio
+async def test_mkfifo():
+    filename = join(dirname(__file__), "resources", "test_fifo1.txt")
+    await aiofiles.os.mkfifo(filename)
+    assert S_ISFIFO(stat(filename).st_mode) != 0
 
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="Doesn't work on Win")
